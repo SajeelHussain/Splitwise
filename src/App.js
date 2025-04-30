@@ -1,17 +1,45 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ExpenseProvider } from "./context/ExpenseContext";
 import Navbar from "./components/Navbar";
+import Notisfication from "./components/Notisfication";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import AddExpense from "./pages/AddExpense";
 import Reports from "./pages/Report";
 import "./styles/App.css";
+import { useEffect } from "react";
 
 function ProtectedRoute({ children }) {
   const { user } = useAuth();
-  return user ? children : <Navigate to="/" />;
+  const [showNotisfication, setShowNotisfication] = useState(!user);
+
+  useEffect(() => {
+    if (!user) {
+      const timer = setTimeout(() => {
+        setShowNotisfication(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
+
+  if (!user) {
+    return (
+      <div className="container mt-5">
+        {showNotisfication && (
+          <Notisfication message="You must be logged in to acess this page."></Notisfication>
+        )}
+        {!showNotisfication && <Navigate to="/" />}
+      </div>
+    );
+  }
+  return children;
 }
 
 function App() {
