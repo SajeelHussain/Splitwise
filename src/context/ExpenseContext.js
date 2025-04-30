@@ -30,6 +30,6 @@ export function ExpenseProvider({ children }) {
   );
 }
 
-export function useExpense() {
+export function useExpenses() {
   return useContext(ExpenseContext);
 }

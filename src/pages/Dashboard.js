@@ -1,8 +1,8 @@
-import { useExpense } from "../context/ExpenseContext";
+import { useExpenses } from "../context/ExpenseContext";
 import ExpenseCard from "../components/ExpenseCard";
 
 function Dashboard() {
-  const { expenses } = useExpense();
+  const { expenses } = useExpenses();
 
   return (
     <div className="container mt-5">
