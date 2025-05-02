@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
+import { useState } from "react";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ExpenseProvider } from "./context/ExpenseContext";
 import Navbar from "./components/Navbar";
@@ -24,7 +24,7 @@ function ProtectedRoute({ children }) {
     if (!user) {
       const timer = setTimeout(() => {
         setShowNotisfication(false);
-      }, 3000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [user]);
